@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Number Base Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: blueviolet;
+        }
+        .input, .output {
+            border: 1px solid #e0e0e0;
+            background-color: antiquewhite;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 80px;
+            margin-top: 10px;
+            color: aqua;
+        }
+        button {
+            margin-right: 10px;
+            color: rgb(26, 10, 73);
+        }
+    </style>
+</head>
+<body>
+
+<div class="input">
+    <h3>Input</h3>
+    <select id="inputBase">
+        <option value="10">Decimal</option>
+        <option value="16">Hexadecimal</option>
+        <option value="8">Octal</option>
+        <option value="2">Binary</option>
+    </select>
+    <textarea id="inputTextarea"></textarea>
+</div>
+
+<div class="output">
+    <h3>Output</h3>
+    <select id="outputBase">
+        <option value="10">Decimal</option>
+        <option value="16">Hexadecimal</option>
+        <option value="8">Octal</option>
+        <option value="2">Binary</option>
+    </select>
+    <textarea id="outputTextarea" readonly></textarea>
+</div>
+
+<button onclick="swapValues()">Swap</button>
+<button onclick="convertBase()">Submit</button>
+
+<script>
+    function convertBase() {
+        let num = document.getElementById('inputTextarea').value;
+        let inputBase = parseInt(document.getElementById('inputBase').value);
+        let outputBase = parseInt(document.getElementById('outputBase').value);
+
+        // Convert to base 10 first
+        let decimal = parseInt(num, inputBase);
+        
+        if(isNaN(decimal)) {
+            document.getElementById('outputTextarea').value = 'Invalid Input!';
+            return;
+        }
+
+        // Convert from base 10 to desired base
+        let result = decimal.toString(outputBase).toUpperCase();
+
+        document.getElementById('outputTextarea').value = result;
+    }
+
+    function swapValues() {
+        let inputBaseElement = document.getElementById('inputBase');
+        let outputBaseElement = document.getElementById('outputBase');
+        
+        let inputTextareaElement = document.getElementById('inputTextarea');
+        let outputTextareaElement = document.getElementById('outputTextarea');
+
+        let tempBase = inputBaseElement.value;
+        inputBaseElement.value = outputBaseElement.value;
+        outputBaseElement.value = tempBase;
+
+        let tempText = inputTextareaElement.value;
+        inputTextareaElement.value = outputTextareaElement.value;
+        outputTextareaElement.value = tempText;
+    }
+</script>
+
+</body>
+</html>
